@@ -1,0 +1,43 @@
+{
+    "name" : "nullpointer-common",
+    "version" : "0.0.1-SNAPSHOT",
+    "description": "Common JS",
+    "keywords": [],
+
+    "ignore": [".*", "bower_components", "lib", "node_modules", "src", "test", "tmp", "Gruntfile.js", "package.json", "README.md"],
+
+    "dependencies": {
+        "requirejs": "2.*",
+        "jquery": "1.9.x",
+        "underscore": "1.4.x",
+
+        "session.js": "0.4.*",
+
+        "dateformat": "http://stevenlevithan.com/assets/misc/date.format.js",
+        "iso8601": "git://github.com/csnover/js-iso8601.git"
+    },
+
+    "devDependencies": {
+    },
+
+    "exportsOverride": {
+        "requirejs": {
+            "": "require.js"
+        },
+        "jquery": {
+            "": "jquery.js"
+        },
+        "underscore": {
+            "": "underscore.js"
+        },
+
+        "session.js": {
+            "": "session.js"
+        },
+        "iso8601": {
+            "": "iso8601.js"
+        }
+    },
+
+    "private": true
+}

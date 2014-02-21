@@ -1,0 +1,33 @@
+{
+    "name" : "nullpointer-common",
+    "version" : "0.0.1-SNAPSHOT",
+    "description": "Common JS",
+    "keywords": [],
+
+    "author": {
+        "name": "Nullpointer",
+        "url": "http://null-pointer.ru/"
+    },
+
+    "repository": {
+    },
+
+    "dependencies": {
+    },
+
+    "devDependencies": {
+        "grunt": "~0.4.2",
+        "grunt-contrib-clean": "~0.5",
+        "grunt-contrib-connect": "~0.6",
+        "grunt-shell": "~0.6",
+        "grunt-bower-task": "~0.3",
+        "grunt-contrib-jshint": "~0.8",
+        "grunt-contrib-copy": "~0.5.0",
+
+        "phantomjs": "~1.9",
+
+        "mocha": "~1.17",
+        "mocha-phantomjs": "~3.3",
+        "chai": "*"
+    }
+}
