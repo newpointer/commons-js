@@ -33,7 +33,7 @@ module.exports = function(grunt) {
         },
 
         shell: {
-            'mocha-phantomjs-tests': {
+            'utils-tests': {
                 command: 'node_modules/mocha-phantomjs/bin/mocha-phantomjs -R spec http://localhost:' + testServerPort + '/test/utils/test.html',
                 options: {
                     failOnError: true,
@@ -73,6 +73,9 @@ module.exports = function(grunt) {
 
     grunt.registerTask('init', ['bower']);
     grunt.registerTask('build', ['bower', 'jshint', 'connect', 'shell:mocha-phantomjs-tests']);
-    grunt.registerTask('test', ['connect', 'shell:mocha-phantomjs-tests']);
+
+    grunt.registerTask('utils-tests', ['connect', 'shell:utils-tests']);
+    grunt.registerTask('test', ['utils-tests']);
+
     grunt.registerTask('dist', ['build', 'copy:dist', 'copy:docs']);
 };
