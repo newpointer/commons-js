@@ -72,10 +72,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('init', ['bower']);
-    grunt.registerTask('build', ['bower', 'jshint', 'connect', 'shell:mocha-phantomjs-tests']);
-
     grunt.registerTask('utils-tests', ['connect', 'shell:utils-tests']);
     grunt.registerTask('test', ['utils-tests']);
+    grunt.registerTask('build', ['bower', 'jshint', 'test']);
 
     grunt.registerTask('dist', ['build', 'copy:dist', 'copy:docs']);
 };

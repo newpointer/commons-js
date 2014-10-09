@@ -13,7 +13,7 @@
 
         "session.js": "0.4.*",
 
-        "dateformat": "http://stevenlevithan.com/assets/misc/date.format.js",
+        "dateformat": "https://gist.github.com/eikes/1835694/download",
         "iso8601": "git://github.com/csnover/js-iso8601.git"
     },
 
