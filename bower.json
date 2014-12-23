@@ -8,8 +8,8 @@
 
     "dependencies": {
         "requirejs": "2.*",
-        "jquery": "1.9.x",
-        "underscore": "1.4.x",
+        "jquery": "2.1.*",
+        "underscore": "1.5.*",
 
         "session.js": "0.4.*",
 
