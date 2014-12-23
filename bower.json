@@ -4,7 +4,7 @@
     "description": "Common JS",
     "keywords": [],
 
-    "ignore": [".*", "bower_components", "lib", "node_modules", "src", "test", "tmp", "Gruntfile.js", "package.json", "README.md"],
+    "ignore": [".*", "bower_components", "lib", "node_modules", "test", "tmp", "Gruntfile.js", "package.json", "README.md"],
 
     "dependencies": {
         "requirejs": "2.*",
