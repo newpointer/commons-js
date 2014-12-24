@@ -1,0 +1,14 @@
+/* INDIVIDUAL subtype */
+.foreign .i-user:before {
+    content: "\e008" !important;
+}
+
+/* gender */
+.MALE.i-user:before,
+.MALE .i-user:before {
+    content: "\e600" !important;
+}
+.FEMALE.i-user:before,
+.FEMALE .i-user:before {
+    content: "\e006" !important;
+}
