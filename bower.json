@@ -1,43 +1,51 @@
 {
-    "name" : "nullpointer-commons",
-    "version" : "0.0.1-SNAPSHOT",
-    "description": "Common JS",
-    "keywords": [],
-
-    "ignore": [".*", "bower_components", "lib", "node_modules", "test", "tmp", "Gruntfile.js", "package.json", "README.md"],
-
-    "dependencies": {
-        "requirejs": "2.*",
-        "jquery": "2.1.*",
-        "underscore": "1.5.*",
-
-        "session.js": "0.4.*",
-
-        "dateformat": "https://gist.github.com/eikes/1835694/download",
-        "iso8601": "git://github.com/csnover/js-iso8601.git"
+  "name": "nullpointer-commons",
+  "version": "0.0.1-SNAPSHOT",
+  "description": "Common JS",
+  "keywords": [],
+  "ignore": [
+    ".*",
+    "bower_components",
+    "lib",
+    "node_modules",
+    "test",
+    "tmp",
+    "Gruntfile.js",
+    "package.json",
+    "README.md"
+  ],
+  "dependencies": {
+    "requirejs": "2.1.15",
+    "requirejs-text": "2.0.12",
+    "jquery": "2.1.*",
+    "jquery.cookie": "1.4.1",
+    "underscore": "1.5.*",
+    "session.js": "0.4.*",
+    "purl": "2.3.*",
+    "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
+    "dateformat": "https://gist.github.com/eikes/1835694/download",
+    "iso8601": "git://github.com/csnover/js-iso8601.git"
+  },
+  "devDependencies": {},
+  "exportsOverride": {
+    "requirejs": {
+      "": "require.js"
     },
-
-    "devDependencies": {
+    "jquery": {
+      "": "dist/jquery.js"
     },
-
-    "exportsOverride": {
-        "requirejs": {
-            "": "require.js"
-        },
-        "jquery": {
-            "": "jquery.js"
-        },
-        "underscore": {
-            "": "underscore.js"
-        },
-
-        "session.js": {
-            "": "session.js"
-        },
-        "iso8601": {
-            "": "iso8601.js"
-        }
+    "underscore": {
+      "": "underscore.js"
     },
-
-    "private": true
+    "session.js": {
+      "": "session.js"
+    },
+    "iso8601": {
+      "": "iso8601.js"
+    }
+  },
+  "private": true,
+  "resolutions": {
+    "underscore": "1.5.*"
+  }
 }
