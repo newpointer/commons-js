@@ -30,7 +30,7 @@ define(function(require) {'use strict';
 
                 user = u;
 
-                $rootScope.$emit('app-user-apply', change);
+                $rootScope.$emit('nkb-user-apply', change);
             }
 
             function isFetch(u) {
