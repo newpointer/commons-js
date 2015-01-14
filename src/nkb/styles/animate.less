@@ -1,0 +1,132 @@
+/*
+ * Animate
+ *
+ * TODO проверить в браузерах
+ */
+
+@defaultAnimateDuration: 2s;
+
+/*
+ * animate-pulsed-flash
+ *
+ */
+@animatePulsedFlash: animate-pulsed-flash @defaultAnimateDuration infinite;
+.animatePulsedFlashKeyframes {
+    0%, 50%, 100% {
+        opacity: 1;
+    }
+
+    25%, 75% {
+        opacity: 0.5;
+    }
+}
+@-webkit-keyframes animate-pulsed-flash {
+    .animatePulsedFlashKeyframes
+}
+@-moz-keyframes animate-pulsed-flash {
+    .animatePulsedFlashKeyframes
+}
+@-ms-keyframes animate-pulsed-flash {
+    .animatePulsedFlashKeyframes
+}
+@-o-keyframes animate-pulsed-flash {
+    .animatePulsedFlashKeyframes
+}
+@keyframes animate-pulsed-flash {
+    .animatePulsedFlashKeyframes
+}
+.animate-pulsed-flash {
+    -webkit-animation:  @animatePulsedFlash;
+       -moz-animation:  @animatePulsedFlash;
+        -ms-animation:  @animatePulsedFlash;
+         -o-animation:  @animatePulsedFlash;
+            animation:  @animatePulsedFlash;
+}
+
+/*
+ * animate-pulsed-flash 1-iteration
+ *
+ */
+@animatePulsedFlash_1: animate-pulsed-flash @defaultAnimateDuration 1;
+.animate-pulsed-flash-1 {
+    -webkit-animation:  @animatePulsedFlash_1;
+       -moz-animation:  @animatePulsedFlash_1;
+        -ms-animation:  @animatePulsedFlash_1;
+         -o-animation:  @animatePulsedFlash_1;
+            animation:  @animatePulsedFlash_1;
+}
+
+
+/*
+ * animate-fadeout
+ *
+ */
+@animateFadeout: animate-fadeout 0.5s;
+.animateFadeoutKeyframes {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+@-webkit-keyframes animate-fadeout {
+    .animateFadeoutKeyframes
+}
+@-moz-keyframes animate-fadeout {
+    .animateFadeoutKeyframes
+}
+@-ms-keyframes animate-fadeout {
+    .animateFadeoutKeyframes
+}
+@-o-keyframes animate-fadeout {
+    .animateFadeoutKeyframes
+}
+@keyframes animate-fadeout {
+    .animateFadeoutKeyframes
+}
+.animate-fadeout {
+    -webkit-animation:  @animateFadeout;
+       -moz-animation:  @animateFadeout;
+        -ms-animation:  @animateFadeout;
+         -o-animation:  @animateFadeout;
+            animation:  @animateFadeout;
+}
+
+/*
+ * animate-fadein
+ *
+ */
+@animateFadein: animate-fadein 0.5s;
+.animateFadeinKeyframes {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+@-webkit-keyframes animate-fadein {
+    .animateFadeinKeyframes
+}
+@-moz-keyframes animate-fadein {
+    .animateFadeinKeyframes
+}
+@-ms-keyframes animate-fadein {
+    .animateFadeinKeyframes
+}
+@-o-keyframes animate-fadein {
+    .animateFadeinKeyframes
+}
+@keyframes animate-fadein {
+    .animateFadeinKeyframes
+}
+.animate-fadein {
+    -webkit-animation:  @animateFadein;
+       -moz-animation:  @animateFadein;
+        -ms-animation:  @animateFadein;
+         -o-animation:  @animateFadein;
+            animation:  @animateFadein;
+}
