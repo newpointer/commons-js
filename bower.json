@@ -1,6 +1,6 @@
 {
   "name": "nullpointer-commons",
-  "version": "0.0.1-SNAPSHOT",
+  "version": "1.0.0-SNAPSHOT",
   "description": "Common JS",
   "keywords": [],
   "main": "",
@@ -20,10 +20,10 @@
     "requirejs-text": "2.0.12",
     "jquery": "1.9.*",
     "jquery.cookie": "1.4.1",
-    "underscore": "1.5.*",
+    "lodash-compat": "3.2.*",
     "session.js": "0.4.*",
     "purl": "2.3.*",
-    "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
+    "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git#underscore_lodash",
     "dateformat": "https://gist.github.com/eikes/1835694/download",
     "iso8601": "git://github.com/csnover/js-iso8601.git"
   },
@@ -33,10 +33,7 @@
       "": "require.js"
     },
     "jquery": {
-      "": "dist/jquery.js"
-    },
-    "underscore": {
-      "": "underscore.js"
+      "": "jquery.js"
     },
     "session.js": {
       "": "session.js"
@@ -45,8 +42,5 @@
       "": "iso8601.js"
     }
   },
-  "private": true,
-  "resolutions": {
-    "underscore": "1.5.*"
-  }
+  "private": true
 }

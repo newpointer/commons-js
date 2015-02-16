@@ -7,7 +7,7 @@ require.config({
 
         // path to src dependencies files
         'jquery':       'lib/jquery/jquery',
-        'underscore':   'lib/underscore/underscore',
+        'lodash':       'lib/lodash-compat/lodash',
 
         'dateformat':   'lib/dateformat/index',
         'iso8601':      'lib/iso8601/iso8601',
@@ -22,12 +22,6 @@ require.config({
 
         // paths to test files
         'utils_test':    'test/utils/utils_test'
-    },
-
-    shim: {
-        'underscore': {
-            exports: '_'
-        }
     }
 });
 
@@ -44,4 +38,3 @@ define(function(require) {
         }
     });
 });
-

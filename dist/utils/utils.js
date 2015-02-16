@@ -6,7 +6,7 @@
 define(function(require, exports, module) {
 
     require('jquery');
-    require('underscore');
+    require('lodash');
     require('dateformat');
     require('session');
     //
