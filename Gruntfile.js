@@ -33,8 +33,8 @@ module.exports = function(grunt) {
         },
 
         shell: {
-            'utils-tests': {
-                command: 'node_modules/mocha-phantomjs/bin/mocha-phantomjs -R spec http://localhost:' + testServerPort + '/test/utils/test.html',
+            'all-tests': {
+                command: 'node_modules/mocha-phantomjs/bin/mocha-phantomjs -R spec http://localhost:' + testServerPort + '/test/test.html',
                 options: {
                     failOnError: true,
                     stdout: true,
@@ -47,6 +47,10 @@ module.exports = function(grunt) {
             options: {
                 force: true,
                 browser: true,
+                ignores: [
+                    'src/lodash/lodash.js',
+                    'src/lodash/underscore.string.js'
+                ],
                 '-W069': true
             },
             src: ['src/**/*.js']
@@ -72,8 +76,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
 
     grunt.registerTask('init', ['bower']);
-    grunt.registerTask('utils-tests', ['connect', 'shell:utils-tests']);
-    grunt.registerTask('test', ['utils-tests']);
+    grunt.registerTask('all-tests', ['connect', 'shell:all-tests']);
+    grunt.registerTask('test', ['all-tests']);
     grunt.registerTask('build', ['bower', 'jshint', 'test']);
 
     grunt.registerTask('dist', ['build', 'copy:dist', 'copy:docs']);
