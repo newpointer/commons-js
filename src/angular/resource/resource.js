@@ -5,7 +5,7 @@
  */
 define(function(require) {'use strict';
 
-                  require('underscore');
+                  require('lodash');
     var angular = require('angular');
 
     return require('./np.resource');
