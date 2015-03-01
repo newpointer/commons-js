@@ -7,7 +7,7 @@ define(function(require, exports, module) {
 
     require('jquery');
     require('lodash');
-    require('dateformat');
+    // require('dateformat'); // @Deprecated
     require('session');
     //
 

@@ -36,5 +36,39 @@ define(function(require, exports, module) {'use strict';
                 return text;
             };
         }]);
+        //
+        .filter('numberOrMessage', ['$filter', function($filter){
+            return function(number, zeroMessage){
+                if (!number && zeroMessage) {
+                    return zeroMessage;
+                }
+
+                return $filter('number')(number);
+            };
+        }])
+        //
+        .filter('multiline', [function(){
+            return function(text, criteria, criteriaLength){
+                if (_.isBlank(text) || text.length < criteriaLength) {
+                    return text;
+                }
+
+                var index, lines, i;
+
+                if (criteria === 'line') {
+                    lines = text;
+
+                    for (i = criteriaLength; i < text.length; i += criteriaLength) {
+                        index = lines.indexOf(' ', i);
+                        lines = _.splice(lines, index, 1, '\n');
+                    }
+                } else {
+                    index = text.indexOf(' ', criteria === 'middle' ? text.length / 2 : 0);
+                    lines = _.splice(text, index, 1, '\n');
+                }
+
+                return lines;
+            };
+        }]);
     //
 });
