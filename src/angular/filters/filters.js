@@ -35,7 +35,7 @@ define(function(require, exports, module) {'use strict';
 
                 return text;
             };
-        }]);
+        }])
         //
         .filter('numberOrMessage', ['$filter', function($filter){
             return function(number, zeroMessage){
