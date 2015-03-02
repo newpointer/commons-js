@@ -13,6 +13,14 @@
     clear: both;
 }
 
+.inline {
+    display: inline-block;
+}
+
+.strong {
+    font-weight: bold;
+}
+
 a {
     padding-bottom: 0;
     color: @linkColor;
@@ -21,6 +29,12 @@ a {
 }
 a.underline {
     border-bottom-color: @linkUnderlineColor;
+}
+a.pseudo {
+    border-bottom-style: dashed;
+}
+a.pointer {
+    cursor: pointer;
 }
 a:hover,
 a:focus,
@@ -32,6 +46,30 @@ a.underline:hover,
 a.underline:focus,
 a.underline:active {
     border-bottom-color: @linkActiveUnderlineColor;
+}
+
+/* @Deprecated */
+a.target-blank {
+    position: relative;
+    margin-right: 2em;
+}
+a.target-blank:after {
+    /* icons */
+    font-family: 'nkbrelation-icon-font';
+    speak: none;
+    font-style: normal;
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    content: "\e309"; /* .i-link-target-blank */
+
+    position: absolute;
+    right: -1.25em;
+    bottom: 0;
+    font-size: 110%;
 }
 
 a.disabled,
@@ -72,8 +110,12 @@ a.with-icon.underline:active .text {
     border-bottom-color: @linkActiveUnderlineColor;
 }
 
-ul > li {
-    margin-bottom: 5px;
+form {
+    margin: 0;
+}
+
+.small {
+    font-size: 85%;
 }
 
 .align-left {
@@ -86,26 +128,152 @@ ul > li {
     text-align: right !important;
 }
 
-.small {
-    font-size: 85%;
-}
-
 .text-ellipsis {
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
 }
+
+.nowrap {
+    white-space: nowrap;
+}
+.wrap {
+    white-space: normal;
+}
+
+.indent-top {
+    margin-top: @defaultIndent !important;
+}
+.no-indent {
+    margin: 0 !important;
+}
+.u1 {
+    margin-top: -1px;
+}
+.d1 {
+    margin-top: 1px;
+}
+.d2 {
+    margin-top: 2px;
+}
+.d3 {
+    margin-top: 3px;
+}
+.d4 {
+    margin-top: 4px;
+}
+.d5 {
+    margin-top: 5px;
+}
+
+.btn.flat {
+    background-image: none;
+    background-color: @btnFlatBackgroundColor;
+    border: @btnFlatBorder;
+    filter: none;
+    -webkit-border-radius:  @defaultBorderRadius;
+     -moz-border-radius:    @defaultBorderRadius;
+          border-radius:    @defaultBorderRadius;
+    -webkit-box-shadow:     none;
+     -moz-box-shadow:       none;
+          box-shadow:       none;
+}
+.btn.flat.link {
+    color: @linkColor;
+}
+.btn.flat:hover,
+.btn.flat:focus {
+    color: @linkActiveColor;
+    background-color: @btnFlatHoverBackgroundColor;
+}
+.btn.flat.active,
+.btn.flat:active {
+    color: @linkActiveColor;
+    background-color: @btnFlatHoverBackgroundColor;
+    border-color: @btnFlatActiveBorderColor;
+}
+.btn.flat.disabled,
+.btn.flat[disabled] {
+    color: @defaultDisabledColor;
+    background-color: @btnFlatBackgroundColor;
+}
+
+.btn.flat.btn-close {
+    padding-bottom: 2px;
+    font-size: 16px;
+    line-height: 18px;
+
+    padding-top: 3px \9;
+    padding-bottom: 1px \9;
+    line-height: 16px \9;
+
+    font-weight: bold;
+    text-shadow: 0 1px 0 #ffffff;
+    color: #808080;
+}
+.btn.btn-close:hover,
+.btn.btn-close:focus,
+.btn.btn-close.active,
+.btn.btn-close:active {
+    color: @defaultColor;
+}
+
+.btn-group > .btn.flat {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+.btn-group > .btn.flat:first-child {
+    -webkit-border-top-left-radius: @defaultBorderRadius;
+    -moz-border-radius-topleft: @defaultBorderRadius;
+    border-top-left-radius: @defaultBorderRadius;
+    -webkit-border-bottom-left-radius: @defaultBorderRadius;
+    -moz-border-radius-bottomleft: @defaultBorderRadius;
+    border-bottom-left-radius: @defaultBorderRadius;
+}
+.btn-group > .btn.flat:last-child {
+    -webkit-border-top-right-radius: @defaultBorderRadius;
+    -moz-border-radius-topright: @defaultBorderRadius;
+    border-top-right-radius: @defaultBorderRadius;
+    -webkit-border-bottom-right-radius: @defaultBorderRadius;
+    -moz-border-radius-bottomright: @defaultBorderRadius;
+    border-bottom-right-radius: @defaultBorderRadius;
+}
+
 input.input-mini {
     height: 16px;
     padding: 2px 3px;
-    font-size: 13px;
+    font-size: @contentFontSize;
     line-height: 16px;
-
-    -webkit-border-radius: 3px;
-       -moz-border-radius: 3px;
-            border-radius: 3px;
+    -webkit-border-radius:  @defaultBorderRadius;
+     -moz-border-radius:    @defaultBorderRadius;
+          border-radius:    @defaultBorderRadius;
 }
+.input-append input.input-mini {
+    -webkit-border-radius:  @defaultBorderRadius 0 0 @defaultBorderRadius;
+     -moz-border-radius:    @defaultBorderRadius 0 0 @defaultBorderRadius;
+          border-radius:    @defaultBorderRadius 0 0 @defaultBorderRadius;
+}
+
+.input-append .add-on:last-child,
+.input-append .btn:last-child,
+.input-append .btn-group:last-child > .dropdown-toggle {
+    -webkit-border-radius: 0 @defaultBorderRadius @defaultBorderRadius 0;
+    -moz-border-radius: 0 @defaultBorderRadius @defaultBorderRadius 0;
+    border-radius: 0 @defaultBorderRadius @defaultBorderRadius 0;
+}
+
+input.input-small {
+    height: 16px;
+    padding: 4px 6px;
+    font-size: @contentFontSize;
+    line-height: 16px;
+    -webkit-border-radius:  @defaultBorderRadius;
+     -moz-border-radius:    @defaultBorderRadius;
+          border-radius:    @defaultBorderRadius;
+}
+
 
 .header-light {
     color: @defaultHeaderLightColor;
@@ -134,7 +302,7 @@ input.input-mini {
        -o-transform: rotate(1deg);
           transform: rotate(1deg);
 }
-.shadow-lift-lb-corner.strong:before {
+.shadow-lift-lb-corner.shadow-strong:before {
   bottom: 18px;
 }
 .shadow-lift-lb-corner:after {
@@ -159,6 +327,20 @@ input.input-mini {
     vertical-align: -6px;
 }
 
+.btn-mini .icon {
+    vertical-align: -3px;
+}
+
+.icon.info {
+    color: @defaultInfoColor;
+}
+.icon.success {
+    color: @defaultSuccessColor;
+}
+.icon.warning {
+    color: @defaultWarningColor;
+}
+
 /* nkb-logo */
 .nkb-logo {
     height: 42px;
@@ -170,4 +352,8 @@ input.input-mini {
 }
 .lang-en .nkb-logo {
     background: transparent no-repeat 0 0 url("./i/nkb-logo_en.png");
+}
+
+.nkb-logo-sign {
+    background: transparent no-repeat 0 0 url("./i/nkb-logo-sign.png");
 }
