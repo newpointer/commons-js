@@ -4,8 +4,8 @@
  * @author ankostyuk
  */
 define(function(require, exports, module) {'use strict';
-    var moduleConfig = module.config();
 
+                  require('jquery');
     var angular = require('angular');
 
     return angular.module('np.directives', [])
