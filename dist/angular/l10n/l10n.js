@@ -9,11 +9,14 @@ define(function(require, exports, module) {'use strict';
                           require('jquery');
                           require('jquery.cookie');
 
-    var angular         = require('angular'),
-        i18n            = require('i18n'),
-        purl            = require('purl');
+    var i18n            = require('i18n'),
+        purl            = require('purl'),
+        angular         = require('angular');
 
     //
+    var requireDeferred = $.Deferred(),
+        requirePromise  = requireDeferred.promise();
+
     i18n.setConfig(moduleConfig['i18n-component']);
 
     function setLocale(lang) {
@@ -39,6 +42,10 @@ define(function(require, exports, module) {'use strict';
             if (bundles.length === moduleConfig.bundles.length && locale) {
                 i18n.setBundle(bundles);
                 i18n.setLang(currentLang);
+
+                $('body').addClass('lang-' + currentLang);
+
+                requireDeferred.resolve();
             }
         }
     }
@@ -98,29 +105,15 @@ define(function(require, exports, module) {'use strict';
     resolveLang();
     applyLang();
 
-    return angular.module('np.l10n', [])
-        //
-        .factory('npL10n', ['$log', '$location', '$rootScope', function($log, $location, $rootScope){
-            //
-            angular.extend($rootScope, i18n.translateFuncs);
-
-            //
-            $('body').addClass('lang-' + currentLang);
-
-            // API
-            return {
-                l10n: function() {
-                    return {
-                        getLang: function() {
-                            return currentLang;
-                        },
-                        currentUrlWithLang: function(lang) {
-                            return urlWithLang($location.absUrl(), lang);
-                        },
-                        urlWithLang: urlWithLang
-                    };
-                }
-            };
-        }]);
-    //
+    return {
+        i18n: i18n,
+        initPromise: requirePromise,
+        getLang: function() {
+            return currentLang;
+        },
+        currentUrlWithLang: function(lang) {
+            return urlWithLang($location.absUrl(), lang);
+        },
+        urlWithLang: urlWithLang
+    };
 });
