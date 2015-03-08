@@ -73,11 +73,11 @@ define(function(require, exports, module) {'use strict';
         //
         .directive('npFadeout', [function(){
             return function(scope, element, attrs){
+               var o = parseFloat(attrs['npFadeoutOpacity']) || 0,
+                   d = parseInt(attrs['npFadeoutDuration']) || 100;
+
                 scope.$watch(attrs['npFadeout'], function(newVal, oldVal){
                    if (newVal) {
-                       var o = parseFloat(attrs['npFadeoutOpacity']) || 0,
-                           d = parseInt(attrs['npFadeoutDuration']) || 100;
-
                        element.stop(true, true).animate({
                            opacity: o
                        }, {
@@ -96,11 +96,11 @@ define(function(require, exports, module) {'use strict';
         //
         .directive('npFadein', [function(){
             return function(scope, element, attrs){
+               var o = parseFloat(attrs['npFadeinOpacity']) || 1,
+                   d = parseInt(attrs['npFadeinDuration']) || 100;
+
                 scope.$watch(attrs['npFadein'], function(newVal, oldVal){
                    if (newVal) {
-                       var o = parseFloat(attrs['npFadeinOpacity']) || 1,
-                           d = parseInt(attrs['npFadeinDuration']) || 100;
-
                        element.stop(true, true).show().animate({
                            opacity: o
                        }, {
