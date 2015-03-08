@@ -69,6 +69,47 @@ define(function(require, exports, module) {'use strict';
                     }
                 }
             };
+        }])
+        //
+        .directive('npFadeout', [function(){
+            return function(scope, element, attrs){
+                scope.$watch(attrs['npFadeout'], function(newVal, oldVal){
+                   if (newVal) {
+                       var o = parseFloat(attrs['npFadeoutOpacity']) || 0,
+                           d = parseInt(attrs['npFadeoutDuration']) || 100;
+
+                       element.stop(true, true).animate({
+                           opacity: o
+                       }, {
+                           queue: false,
+                           duration: d,
+                           done: function(){
+                               if (o === 0) {
+                                   element.hide();
+                               }
+                           }
+                       });
+                   }
+                });
+            };
+        }])
+        //
+        .directive('npFadein', [function(){
+            return function(scope, element, attrs){
+                scope.$watch(attrs['npFadein'], function(newVal, oldVal){
+                   if (newVal) {
+                       var o = parseFloat(attrs['npFadeinOpacity']) || 1,
+                           d = parseInt(attrs['npFadeinDuration']) || 100;
+
+                       element.stop(true, true).show().animate({
+                           opacity: o
+                       }, {
+                           queue: false,
+                           duration: d
+                       });
+                   }
+                });
+            };
         }]);
     //
 });
