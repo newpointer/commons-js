@@ -69,11 +69,14 @@ define(function(require) {'use strict';
             function fetchUser() {
                 userRequest = userLimitsResource({
                     previousRequest: userRequest,
-                    success: function(data){
+                    success: function(data) {
                         applyUser(data);
                     },
-                    error: function(){
-                        applyUser(null);
+                    error: function(data, status) {
+                        // status = 0 -- при принудительной отмене запросов
+                        if (status !== 0) {
+                            applyUser(null);
+                        }
                     }
                 });
 
