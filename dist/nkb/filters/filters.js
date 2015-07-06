@@ -6,6 +6,9 @@
 define(function(require, exports, module) {'use strict';
     var angular = require('angular');
 
+    //
+    var screenPrefics = '#';
+
     return angular.module('nkb.filters', [])
         //
         .filter('isLastSalesVolume', ['appConfig', function(appConfig){
@@ -134,6 +137,22 @@ define(function(require, exports, module) {'use strict';
                 var okvedCode = _.chop(okved, 2).join('.');
 
                 return okvedCode + ' ' + okvedText;
+            };
+        }])
+        //
+        .filter('isScreen', [function(){
+            return function(text){
+                return _.startsWith(text, screenPrefics);
+            };
+        }])
+        //
+        .filter('screen', [function(){
+            return function(text){
+                if (!text || !_.isString(text)) {
+                    return text;
+                }
+
+                return _.ltrim(text, screenPrefics);
             };
         }]);
     //
