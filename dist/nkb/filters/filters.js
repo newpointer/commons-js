@@ -6,10 +6,31 @@
 define(function(require, exports, module) {'use strict';
     var angular = require('angular');
 
-    //
-    var screenPrefics = '#';
-
     return angular.module('nkb.filters', [])
+        //
+        .factory('nkbScreenHelper', ['$log', function($log){
+            var screenPrefics = '#';
+
+            var screenHelper = {
+                isScreen: function(text) {
+                    return _.startsWith(text, screenPrefics);
+                },
+
+                screen: function(text) {
+                    if (!text || !_.isString(text)) {
+                        return text;
+                    }
+
+                    return _.ltrim(text, screenPrefics);
+                },
+
+                getScreenPrefics: function() {
+                    return screenPrefics;
+                }
+            };
+
+            return screenHelper;
+        }])
         //
         .filter('isLastSalesVolume', ['appConfig', function(appConfig){
             return function(node){
@@ -21,13 +42,19 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .filter('lastSalesVolume', ['appConfig', function(appConfig){
+        .filter('lastSalesVolume', ['appConfig', 'nkbScreenHelper', function(appConfig, nkbScreenHelper){
             return function(node){
                 if (!node) {
                     return null;
                 }
 
-                return node[appConfig.meta.lastSalesVolumeField] / appConfig.meta.currencyOrder;
+                var value = node[appConfig.meta.lastSalesVolumeField];
+
+                if (nkbScreenHelper.isScreen(value)) {
+                    return value;
+                }
+
+                return value / appConfig.meta.currencyOrder;
             };
         }])
         //
@@ -140,20 +167,12 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .filter('isScreen', [function(){
-            return function(text){
-                return _.startsWith(text, screenPrefics);
-            };
+        .filter('isScreen', ['nkbScreenHelper', function(nkbScreenHelper){
+            return nkbScreenHelper.isScreen;
         }])
         //
-        .filter('screen', [function(){
-            return function(text){
-                if (!text || !_.isString(text)) {
-                    return text;
-                }
-
-                return _.ltrim(text, screenPrefics);
-            };
+        .filter('screen', ['nkbScreenHelper', function(nkbScreenHelper){
+            return nkbScreenHelper.screen;
         }]);
     //
 });
