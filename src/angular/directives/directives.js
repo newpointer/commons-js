@@ -25,6 +25,12 @@ define(function(require, exports, module) {'use strict';
         //          [offset: <number>]
         //      }
         //
+        // Поддержка собственных ключей для pluralize...
+        //      plural = {
+        //          count: <null | string | ... !undefined>,
+        //          ...
+        //      }
+        //
         .directive('npPluralize', ['$locale', '$interpolate', function($locale, $interpolate){
             var BRACE = /{}/g,
                 IS_WHEN = /^when(Minus)?(.+)$/;
@@ -67,8 +73,19 @@ define(function(require, exports, module) {'use strict';
                                 count = $locale.pluralCat(count - offset);
                             }
 
-                            if (!countIsNaN) {
+                            count = countIsNaN ?
+                                (angular.isUndefined(plural.count) ? null : '' + plural.count) :
+                                count;
+
+                            if (count) {
+                                var expression = whensExpFns[count] && whensExpFns[count].exp;
+
+                                if (!expression) {
+                                    throw new Error('No <when expression> in ' + plural.when + ' for count = ' + count + ', plural.count = ' + plural.count);
+                                }
+
                                 var text = $interpolate(whensExpFns[count].exp)(scope);
+
                                 updateElementText(text);
                             }
                         });
