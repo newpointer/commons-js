@@ -13,9 +13,18 @@ define(function(require, exports, module) {'use strict';
         // https://github.com/newpointer/commons-js/issues/2
         // Pluralize с форматированием attr.count фильтром number
         // Код ngPluralizeDirective AngularJS v1.3.13, отличия:
+        //
         // Line #24023...
         //      - braceReplacement = startSymbol + numberExp + '-' + offset + endSymbol,
         //      + braceReplacement = startSymbol + '(' + numberExp + '-' + offset + ')|number' + endSymbol,
+        //
+        // Поддержка атрибута plural для динамического контроля свойств pluralize...
+        //      plural = {
+        //          count: <string expression>,
+        //          when: <string>,
+        //          [offset: <number>]
+        //      }
+        //
         .directive('npPluralize', ['$locale', '$interpolate', function($locale, $interpolate){
             var BRACE = /{}/g,
                 IS_WHEN = /^when(Minus)?(.+)$/;
@@ -33,6 +42,40 @@ define(function(require, exports, module) {'use strict';
                         braceReplacement = startSymbol + '(' + numberExp + '-' + offset + ')|number' + endSymbol,
                         watchRemover = angular.noop,
                         lastCount;
+
+                    // <<< Код поддержки атрибута plural
+                    var pluralExp = attr.plural;
+
+                    if (pluralExp) {
+                        scope.$watch(pluralExp, function npPluralizeWatchAction(plural) {
+                            offset = plural.offset || 0;
+                            braceReplacement = startSymbol + '(' + plural.count + '-' + offset + ')|number' + endSymbol;
+
+                            whens = scope.$eval(plural.when) || {};
+                            whensExpFns = {};
+
+                            angular.forEach(whens, function(expression, key) {
+                                whensExpFns[key] = $interpolate(expression.replace(BRACE, braceReplacement));
+                            });
+
+                            var count = parseFloat(plural.count);
+                            var countIsNaN = isNaN(count);
+
+                            if (!countIsNaN && !(count in whens)) {
+                                // If an explicit number rule such as 1, 2, 3... is defined, just use it.
+                                // Otherwise, check it against pluralization rules in $locale service.
+                                count = $locale.pluralCat(count - offset);
+                            }
+
+                            if (!countIsNaN) {
+                                var text = $interpolate(whensExpFns[count].exp)(scope);
+                                updateElementText(text);
+                            }
+                        });
+
+                        return;
+                    }
+                    // >>>
 
                     angular.forEach(attr, function(expression, attributeName) {
                         var tmpMatch = IS_WHEN.exec(attributeName);
