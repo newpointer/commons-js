@@ -25,7 +25,7 @@
         "session.js": "*",
         "purl": "*",
         "nullpointer-i18n": "git://github.com/newpointer/i18n-js.git",
-        "dateformat": "https://gist.github.com/eikes/1835694/download",
+        "date.format": "git://gist.github.com/1835694.git",
         "iso8601": "git://github.com/csnover/js-iso8601.git"
     },
     "devDependencies": {},
