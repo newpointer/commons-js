@@ -32,18 +32,18 @@ define(function(require) {'use strict';
                     }, httpConfig));
 
                     promise
-                        .success(function(data, status){
+                        .success(function(data, status, headers, config){
                             if (_.isFunction(requestConfig.responseProcess)) {
-                                data = requestConfig.responseProcess(data, status);
+                                data = requestConfig.responseProcess(data, status, headers, config);
                             }
 
                             if (_.isFunction(options.success)) {
-                                options.success(data, status);
+                                options.success(data, status, headers, config);
                             }
                         })
-                        .error(function(data, status){
+                        .error(function(data, status, headers, config){
                             if (_.isFunction(options.error)) {
-                                options.error(data, status);
+                                options.error(data, status, headers, config);
                             }
                         })
                         ['finally'](function(){
