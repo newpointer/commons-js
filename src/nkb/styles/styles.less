@@ -21,30 +21,40 @@
     font-weight: bold;
 }
 
-a {
+a,
+.link {
     padding-bottom: 0;
     color: @linkColor;
     text-decoration: none !important;
     border-bottom: 1px solid transparent;
 }
-a.underline {
+a.underline,
+.link.underline {
     border-bottom-color: @linkUnderlineColor;
 }
-a.pseudo {
+a.pseudo,
+.link.pseudo {
     border-bottom-style: dashed;
 }
-a.pointer {
+a.pointer,
+.link.pointer {
     cursor: pointer;
 }
 a:hover,
 a:focus,
-a:active {
+a:active,
+.link:hover,
+.link:focus,
+.link:active {
     color: @linkActiveColor;
     cursor: pointer;
 }
 a.underline:hover,
 a.underline:focus,
-a.underline:active {
+a.underline:active,
+.link.underline:hover,
+.link.underline:focus,
+.link.underline:active {
     border-bottom-color: @linkActiveUnderlineColor;
 }
 
@@ -74,7 +84,10 @@ a.target-blank:after {
 
 a.disabled,
 a.disabled:hover,
-a.disabled:focus {
+a.disabled:focus,
+.link.disabled,
+.link.disabled:hover,
+.link.disabled:focus {
     color: @defaultDisabledColor;
     border-bottom-color: transparent;
     cursor: default;
@@ -277,11 +290,27 @@ input.input-small {
           border-radius:    @defaultBorderRadius;
 }
 
-
 .header-light {
     color: @defaultHeaderLightColor;
 }
 
+/* attach-file-wrapper */
+.attach-file-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+.attach-file-wrapper input[type="file"] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: solid transparent;
+    border-width: 0 0 100px 200px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    -moz-transform: translate(-300px,0) scale(4);
+    direction: ltr;
+    cursor: pointer;
+}
 
 /* shadows */
 .shadow-lift-lb-corner:before {
