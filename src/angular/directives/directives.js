@@ -170,6 +170,33 @@ define(function(require, exports, module) {'use strict';
                    }
                 });
             };
+        }])
+        //
+        .directive('npLoader', ['$log', function($log){
+            return {
+                restrict: 'A',
+                scope: {
+                    proxy: '=npLoader',
+                    type: '=npLoaderType'
+                },
+                template: '<div></div>',
+                link: function(scope, element, attrs) {
+                    if (!_.isObject(scope.proxy)) {
+                        throw new Error('npLoader attribute must be object');
+                    }
+
+                    element.hide().addClass('loader').find('> div').addClass(scope.type);
+
+                    _.extend(scope.proxy, {
+                        show: function() {
+                            element.show();
+                        },
+                        hide: function() {
+                            element.hide();
+                        }
+                    });
+                }
+            };
         }]);
     //
 });
