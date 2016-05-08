@@ -173,6 +173,14 @@ define(function(require, exports, module) {'use strict';
         //
         .filter('screen', ['nkbScreenHelper', function(nkbScreenHelper){
             return nkbScreenHelper.screen;
+        }])
+        //
+        .filter('externalUrl', ['$log', '$window', 'nkbUserConfig', function($log, $window, nkbUserConfig){
+            var resourceConfig = nkbUserConfig.resource || {};
+            return function(url){
+                var externalUrl = resourceConfig['external.url'] + '?url=' + $window.encodeURIComponent(url);
+                return externalUrl;
+            };
         }]);
     //
 });
