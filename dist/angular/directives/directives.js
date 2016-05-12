@@ -214,7 +214,7 @@ define(function(require, exports, module) {'use strict';
                         fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
                         fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
 
-                    element.hide().addClass('loader').find('> div').addClass(scope.type);
+                    element.hide().find('> div').addClass(scope.type);
 
                     _.extend(scope.proxy, {
                         show: function() {
