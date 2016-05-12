@@ -34,7 +34,7 @@ define(function(require, exports, module) {'use strict';
 
     function fadein(element, opacity, duration) {
         // TODO заменить на CSS
-        element.stop(true, true).show().animate({
+        element.stop(true, true).fadeTo(0, 0).show().animate({
             opacity: opacity
         }, {
             queue: false,
@@ -206,6 +206,8 @@ define(function(require, exports, module) {'use strict';
                 },
                 template: '<div></div>',
                 link: function(scope, element, attrs) {
+                    element.hide().find('> div').addClass(scope.type);
+
                     if (!_.isObject(scope.proxy)) {
                         throw new Error('npLoader attribute must be object');
                     }
@@ -213,8 +215,6 @@ define(function(require, exports, module) {'use strict';
                     var fade            = _.toBoolean(attrs['fade']) || false,
                         fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
                         fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
-
-                    element.hide().find('> div').addClass(scope.type);
 
                     _.extend(scope.proxy, {
                         show: function() {
@@ -230,6 +230,50 @@ define(function(require, exports, module) {'use strict';
                             } else {
                                 element.hide();
                             }
+                        }
+                    });
+                }
+            };
+        }])
+        //
+        .directive('npMessage', ['$log', function($log){
+            return {
+                restrict: 'A',
+                scope: {
+                    proxy: '=npMessage'
+                },
+                template: viewTemplates['message'].html,
+                link: function(scope, element, attrs) {
+                    element.hide();
+
+                    if (!_.isObject(scope.proxy)) {
+                        throw new Error('npMessage attribute must be object');
+                    }
+
+                    var fade            = _.toBoolean(attrs['fade']) || false,
+                        fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
+                        fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
+
+                    _.extend(scope.proxy, {
+                        show: function() {
+                            if (fade) {
+                                fadein(element, fadeOpacity, fadeDuration);
+                            } else {
+                                element.show();
+                            }
+                        },
+                        hide: function() {
+                            if (fade) {
+                                fadeout(element, 0, fadeDuration);
+                            } else {
+                                element.hide();
+                            }
+                        }
+                    });
+
+                    _.extend(scope, {
+                        off: function() {
+                            scope.proxy.hide();
                         }
                     });
                 }
