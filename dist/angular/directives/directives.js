@@ -210,9 +210,9 @@ define(function(require, exports, module) {'use strict';
                         throw new Error('npLoader attribute must be object');
                     }
 
-                    var fade            = _.toBoolean(attrs['npLoaderFade']) || false,
-                        fadeOpacity     = parseFloat(attrs['npLoaderFadeOpacity']) || 0.75,
-                        fadeDuration    = parseInt(attrs['npLoaderFadeDuration']) || 250;
+                    var fade            = _.toBoolean(attrs['fade']) || false,
+                        fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
+                        fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
 
                     element.hide().addClass('loader').find('> div').addClass(scope.type);
 
