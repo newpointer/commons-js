@@ -5,9 +5,37 @@
  */
 define(function(require, exports, module) {'use strict';
 
+                  require('lodash');
                   require('jquery');
     var angular = require('angular');
 
+    //
+    function fadeout(element, opacity, duration) {
+        // TODO заменить на CSS
+        element.stop(true, true).animate({
+            opacity: opacity
+        }, {
+            queue: false,
+            duration: duration,
+            done: function(){
+                if (opacity === 0) {
+                    element.hide();
+                }
+            }
+        });
+    }
+
+    function fadein(element, opacity, duration) {
+        // TODO заменить на CSS
+        element.stop(true, true).show().animate({
+            opacity: opacity
+        }, {
+            queue: false,
+            duration: duration
+        });
+    }
+
+    //
     return angular.module('np.directives', [])
         //
         // https://github.com/newpointer/commons-js/issues/2
@@ -138,17 +166,7 @@ define(function(require, exports, module) {'use strict';
 
                 scope.$watch(attrs['npFadeout'], function(newVal, oldVal){
                    if (newVal) {
-                       element.stop(true, true).animate({
-                           opacity: o
-                       }, {
-                           queue: false,
-                           duration: d,
-                           done: function(){
-                               if (o === 0) {
-                                   element.hide();
-                               }
-                           }
-                       });
+                       fadeout(element, o, d);
                    }
                 });
             };
@@ -161,12 +179,7 @@ define(function(require, exports, module) {'use strict';
 
                 scope.$watch(attrs['npFadein'], function(newVal, oldVal){
                    if (newVal) {
-                       element.stop(true, true).show().animate({
-                           opacity: o
-                       }, {
-                           queue: false,
-                           duration: d
-                       });
+                       fadein(element, o, d);
                    }
                 });
             };
@@ -177,8 +190,7 @@ define(function(require, exports, module) {'use strict';
                 restrict: 'A',
                 scope: {
                     proxy: '=npLoader',
-                    type: '=npLoaderType',
-                    fade: '=npLoaderFade'
+                    type: '=npLoaderType'
                 },
                 template: '<div></div>',
                 link: function(scope, element, attrs) {
@@ -186,40 +198,26 @@ define(function(require, exports, module) {'use strict';
                         throw new Error('npLoader attribute must be object');
                     }
 
-                    var o = parseFloat(attrs['npLoaderFadeOpacity']) || 0.75,
-                        d = parseInt(attrs['npLoaderFadeDuration']) || 250;
+                    var fade            = _.toBoolean(attrs['npLoaderFade']) || false,
+                        fadeOpacity     = parseFloat(attrs['npLoaderFadeOpacity']) || 0.75,
+                        fadeDuration    = parseInt(attrs['npLoaderFadeDuration']) || 250;
 
                     element.hide().addClass('loader').find('> div').addClass(scope.type);
 
                     _.extend(scope.proxy, {
                         show: function() {
-                            if (!scope.fade) {
+                            if (fade) {
+                                fadein(element, fadeOpacity, fadeDuration);
+                            } else {
                                 element.show();
-                                return;
                             }
-
-                            element.stop(true, true).show().animate({
-                               opacity: o
-                            }, {
-                               queue: false,
-                               duration: d
-                            });
                         },
                         hide: function() {
-                            if (!scope.fade) {
+                            if (fade) {
+                                fadeout(element, 0, fadeDuration);
+                            } else {
                                 element.hide();
-                                return;
                             }
-
-                            element.stop(true, true).animate({
-                               opacity: 0
-                            }, {
-                               queue: false,
-                               duration: d,
-                               done: function(){
-                                   element.hide();
-                               }
-                            });
                         }
                     });
                 }
