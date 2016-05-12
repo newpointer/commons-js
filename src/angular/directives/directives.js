@@ -1,5 +1,5 @@
 /**
- * @module directives
+ * @module np.directives
  * @desc RequireJS/Angular module
  * @author ankostyuk
  */
@@ -177,7 +177,8 @@ define(function(require, exports, module) {'use strict';
                 restrict: 'A',
                 scope: {
                     proxy: '=npLoader',
-                    type: '=npLoaderType'
+                    type: '=npLoaderType',
+                    fade: '=npLoaderFade'
                 },
                 template: '<div></div>',
                 link: function(scope, element, attrs) {
@@ -185,14 +186,40 @@ define(function(require, exports, module) {'use strict';
                         throw new Error('npLoader attribute must be object');
                     }
 
+                    var o = parseFloat(attrs['npLoaderFadeOpacity']) || 0.75,
+                        d = parseInt(attrs['npLoaderFadeDuration']) || 250;
+
                     element.hide().addClass('loader').find('> div').addClass(scope.type);
 
                     _.extend(scope.proxy, {
                         show: function() {
-                            element.show();
+                            if (!scope.fade) {
+                                element.show();
+                                return;
+                            }
+
+                            element.stop(true, true).show().animate({
+                               opacity: o
+                            }, {
+                               queue: false,
+                               duration: d
+                            });
                         },
                         hide: function() {
-                            element.hide();
+                            if (!scope.fade) {
+                                element.hide();
+                                return;
+                            }
+
+                            element.stop(true, true).animate({
+                               opacity: 0
+                            }, {
+                               queue: false,
+                               duration: d,
+                               done: function(){
+                                   element.hide();
+                               }
+                            });
                         }
                     });
                 }
