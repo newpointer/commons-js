@@ -1,0 +1,16 @@
+<!-- inline-edit -->
+<script id="inline-edit" type="text/template">
+    <span class="inline-edit-input input-append" ng-show="active">
+        <input class="span2" type="text" ng-model="newText">
+        <button class="btn flat save" ng-click="edit()"><i class="icon i-save-3"></i></button>
+        <button class="btn flat cancel" ng-click="off()"><i class="icon i-delete"></i></button>
+    </span>
+    <span class="inline-edit-on" ng-hide="active">
+        <a ng-click="on()"><i class="icon i-edit"></i></a>
+    </span>
+</script>
+
+<!-- inline-confirm -->
+<script id="inline-confirm" type="text/template">
+    <i class="icon i-message-2"></i><span class="inline-confirm-text"></span>
+</script>

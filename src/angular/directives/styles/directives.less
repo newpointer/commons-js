@@ -1,0 +1,78 @@
+@import './config.less';
+
+/* np-inline-edit */
+[np-inline-edit] {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    left: 0;
+    top: 0;
+    right: 0;
+    white-space: nowrap;
+    overflow-x: visible;
+    overflow-y: visible;
+      overflow: visible;
+}
+[np-inline-edit]:before {
+    content: "";
+    display: none;
+    position: absolute;
+    left: -2px;
+    top: -2px;
+    right: -2px;
+    bottom: -2px;
+    background-color: #ffffff;
+}
+[np-inline-edit].active {
+    bottom: 0;
+}
+[np-inline-edit].active:before {
+    display: block;
+}
+[np-inline-edit] .inline-edit-input {
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: -10px;
+    margin: 0;
+}
+[np-inline-edit] .inline-edit-input input {
+    width: 100%;
+    min-height: 30px;
+
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+}
+[np-inline-edit] .inline-edit-input .save {
+    -webkit-border-radius: 0;
+       -moz-border-radius: 0;
+            border-radius: 0;
+}
+[np-inline-edit] .inline-edit-input .cancel .icon {
+    vertical-align: -1px;
+}
+[np-inline-edit] .inline-edit-on {
+    display: block;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    margin-left: 10px;
+}
+
+[np-inline-edit].mini .inline-edit-input input {
+    height: 20px;
+    min-height: 20px;
+    padding: 0 4px;
+}
+[np-inline-edit].mini .inline-edit-input .btn {
+    padding: 0 8px;
+    line-height: 18px;
+    font-size: 11px;
+}
+
+/* np-inline-confirm */
+[np-inline-confirm] .icon {
+    margin-right: 7px;
+}

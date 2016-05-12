@@ -5,9 +5,16 @@
  */
 define(function(require, exports, module) {'use strict';
 
-                  require('lodash');
-                  require('jquery');
-    var angular = require('angular');
+                          require('less!./styles/directives');
+
+    var template        = require('text!./views/directives.html'),
+        templateData, viewTemplates;
+
+                          require('lodash');
+                          require('jquery');
+    var i18n            = require('i18n'),
+        angular         = require('angular'),
+        templateUtils   = require('template-utils');
 
     //
     function fadeout(element, opacity, duration) {
@@ -37,6 +44,11 @@ define(function(require, exports, module) {'use strict';
 
     //
     return angular.module('np.directives', [])
+        //
+        .run([function(){
+            templateData    = templateUtils.processTemplate(template);
+            viewTemplates   = templateData.templates;
+        }])
         //
         // https://github.com/newpointer/commons-js/issues/2
         // Pluralize с форматированием attr.count фильтром number
@@ -220,6 +232,153 @@ define(function(require, exports, module) {'use strict';
                             }
                         }
                     });
+                }
+            };
+        }])
+        //
+        .directive('npInlineEdit', ['$log', '$timeout', function($log, $timeout){
+            return {
+                restrict: 'A',
+                scope: {
+                    model: '=npInlineEdit',
+                    proxy: '=proxy',
+                    data: '=data'
+                },
+                template: viewTemplates['inline-edit'].html,
+                link: function(scope, element, attrs) {
+                    //
+                    var saveText        = attrs['saveText'] || '',
+                        cancelText      = attrs['cancelText'] || '',
+                        changeText      = attrs['changeText'] || '',
+                        inputElement    = element.find('.inline-edit-input input');
+
+                    element.find('.inline-edit-input .btn.save').attr('title', saveText);
+                    element.find('.inline-edit-input .btn.cancel').attr('title', cancelText);
+                    element.find('.inline-edit-on a').attr('title', changeText);
+
+                    //
+                    inputElement.keyup(function(e){
+                        // esc
+                        if (e.keyCode === 27) {
+                            scope.$apply(function(){
+                                scope.off();
+                            });
+                        } else
+                        // enter
+                        if (e.keyCode === 13) {
+                            scope.$apply(function(){
+                                scope.edit();
+                            });
+                        }
+                    });
+
+                    //
+                    _.extend(scope, {
+                        active: false,
+                        on: function() {
+                            if (!scope.active) {
+                                initText();
+
+                                scope.active = true;
+                                element.addClass('active');
+                            }
+
+                            $timeout(function(){
+                                inputElement.focus();
+                            });
+                        },
+                        off: function() {
+                            if (!scope.active) {
+                                return;
+                            }
+
+                            scope.active = false;
+                            element.removeClass('active');
+                        },
+                        edit: function() {
+                            scope.off();
+
+                            if (scope.newText === scope.oldText) {
+                                return;
+                            }
+
+                            if (_.isFunction(scope.proxy.onEdit)) {
+                                scope.proxy.onEdit(scope.newText, scope.oldText, scope.data);
+                            }
+                        }
+                    });
+
+                    _.extend(scope.proxy, {
+                        on: function() {
+                            scope.on();
+                        },
+                        off: function() {
+                            scope.off();
+                        }
+                    });
+
+                    function initText() {
+                        var text = '' + scope.model;
+                        scope.oldText = text;
+                        scope.newText = text;
+                    }
+                }
+            };
+        }])
+        //
+        .directive('npInlineConfirm', ['$log', function($log){
+            return {
+                restrict: 'A',
+                scope: false,
+                link: function(scope, element, attrs) {
+                    var confirmText = attrs['confirmText'];
+
+                    var confirmElement = $('<span>', {
+                        html: viewTemplates['inline-confirm'].html
+                    });
+
+                    confirmElement.find('.inline-confirm-text').text(confirmText);
+
+                    var confirmExp      = attrs['npInlineConfirm'],
+                        confirmHTML     = confirmElement.html(),
+                        originalHTML    = element.html(),
+                        confirm         = true;
+
+                    element
+                        .click(function(){
+                            doConfirm();
+                        })
+                        .blur(function(){
+                            reset();
+                        });
+
+                    function setConfirmHTML() {
+                        element.html(confirmHTML);
+                    }
+
+                    function setOriginalHTML() {
+                        element.html(originalHTML);
+                    }
+
+                    function doConfirm() {
+                        if (confirm) {
+                            setConfirmHTML();
+                        } else {
+                            setOriginalHTML();
+                            scope.$eval(confirmExp);
+                        }
+
+                        confirm = !confirm;
+                    }
+
+                    function reset() {
+                        if (confirm) {
+                            return;
+                        }
+
+                        setOriginalHTML();
+                        confirm = true;
+                    }
                 }
             };
         }]);
