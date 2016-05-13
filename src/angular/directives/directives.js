@@ -236,7 +236,7 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npMessage', ['$log', function($log){
+        .directive('npMessage', ['$log', '$sce', function($log, $sce){
             return {
                 restrict: 'A',
                 scope: {
@@ -255,6 +255,9 @@ define(function(require, exports, module) {'use strict';
                         fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
 
                     _.extend(scope.proxy, {
+                        setMessageHtml: function(messageHtml) {
+                            scope.messageHtml = $sce.trustAsHtml(messageHtml);
+                        },
                         show: function() {
                             if (fade) {
                                 fadein(element, fadeOpacity, fadeDuration);

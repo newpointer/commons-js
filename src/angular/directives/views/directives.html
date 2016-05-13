@@ -2,7 +2,7 @@
 <script id="message" type="text/template">
     <div class="center">
         <div class="message-box">
-            <div class="message-wrapper">Что-то пошло не так&nbsp;&nbsp;<i class="icon i-sad"></i></div>
+            <div class="message-wrapper" ng-bind-html="messageHtml"></div>
             <div class="message-close-wrapper">
                 <a class="message-close" ng-click="off()"><i class="icon i-delete"></i></a>
             </div>
