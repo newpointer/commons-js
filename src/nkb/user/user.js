@@ -27,11 +27,12 @@ define(function(require) {'use strict';
                 },
 
                 //
-                $get: ['$log', '$rootScope', '$interval', 'npResource', 'nkbUserConfig', function($log, $rootScope, $interval, npResource, nkbUserConfig){
+                $get: ['$log', '$rootScope', '$interval', '$q', 'npResource', 'nkbUserConfig', function($log, $rootScope, $interval, $q, npResource, nkbUserConfig){
 
                     var resourceConfig = nkbUserConfig.resource || {};
 
                     //
+                    var initDefer = $q.defer();
                     var user, userRequest, loginRequest, logoutRequest;
 
                     function applyUser(u) {
@@ -42,10 +43,14 @@ define(function(require) {'use strict';
 
                         user = u;
 
+                        if (isFetch) {
+                            initDefer.resolve();
+                        }
+
                         $rootScope.$emit('nkb-user-apply', change);
                     }
 
-                    function isFetch(u) {
+                    function isFetch() {
                         return user !== undefined;
                     }
 
@@ -216,6 +221,10 @@ define(function(require) {'use strict';
                                     return false;
                                 }
                             };
+                        },
+
+                        initPromise: function() {
+                            return initDefer.promise;
                         },
 
                         fetchUser: function() {
