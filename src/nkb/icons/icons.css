@@ -12,3 +12,22 @@
 .FEMALE .i-user:before {
     content: "\e006" !important;
 }
+
+/* help */
+.i-help-xxx {
+    position: relative;
+    font-size: 30px;
+    line-height: 1;
+}
+.i-help-xxx:before {
+	content: "\e610";
+}
+.i-help-xxx:after {
+    position: absolute;
+    content: "?";
+    left: 10px;
+    top: 4px;
+    font-size: 16px;
+    font-family: Arial;
+    font-weight: bold;
+}
