@@ -60,6 +60,10 @@ define(function(require, exports, module) {'use strict';
                         index = lines.indexOf(' ', i);
                         lines = _.splice(lines, index, 1, '\n');
                     }
+                } else
+                if (criteria === 'lineBreak') {
+                    index = text.indexOf(' ', criteriaLength);
+                    lines = _.splice(text, index, 1, '\n');
                 } else {
                     index = text.indexOf(' ', criteria === 'middle' ? text.length / 2 : 0);
                     lines = _.splice(text, index, 1, '\n');
