@@ -8,6 +8,11 @@ define(function(require, exports, module) {'use strict';
 
     return angular.module('np.filters', [])
         //
+        .filter('lowerAndCapitalizeFirst', [function(){
+            return function(text){
+                return text ? _.capitalize(text.toLowerCase()) : text;
+            };
+        }])
         // https://github.com/newpointer/commons-js/issues/4
         .filter('capitalizeFirst', [function(){
             return function(text){
