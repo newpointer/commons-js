@@ -5,15 +5,15 @@
  */
 define(function(require, exports, module) {'use strict';
 
-                          require('less!./styles/directives');
+                          require('./styles/directives.less');
 
-    var template        = require('text!./views/directives.html'),
+    var template        = require('./views/directives.html'),
         templateData, viewTemplates;
 
                           require('lodash');
                           require('jquery');
     var i18n            = require('i18n'),
-        angular         = require('angular'),
+        angular         = require('angular');
         templateUtils   = require('template-utils');
 
     //

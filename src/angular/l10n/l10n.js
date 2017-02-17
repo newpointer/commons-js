@@ -3,6 +3,8 @@
  * @desc RequireJS/Angular module
  * @author ankostyuk
  */
+
+// @Deprecated
 define(function(require, exports, module) {'use strict';
     var moduleConfig = module.config();
 

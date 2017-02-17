@@ -3,6 +3,8 @@
  * @desc RequireJS/Angular module
  * @author ankostyuk
  */
+
+// @Deprecated
 define(function(require, exports, module) {'use strict';
 
     var l10n    = require('./l10n'),
