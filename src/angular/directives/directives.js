@@ -10,10 +10,10 @@ define(function(require, exports, module) {'use strict';
     var template        = require('./views/directives.html'),
         templateData, viewTemplates;
 
-                          require('lodash');
-                          require('jquery');
-    var i18n            = require('i18n'),
-        angular         = require('angular');
+    var $               = require('jquery'),
+        _               = require('lodash'),
+        i18n            = require('i18n'),
+        angular         = require('angular'),
         templateUtils   = require('template-utils');
 
     //
@@ -197,44 +197,46 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npLoader', ['$log', function($log){
-            return {
-                restrict: 'A',
-                scope: {
-                    proxy: '=npLoader',
-                    type: '=npLoaderType'
-                },
-                template: '<div></div>',
-                link: function(scope, element, attrs) {
-                    element.hide().find('> div').addClass(scope.type);
+        // @Disabled
+        // TypeError: element.hide is not a function
+        // .directive('npLoader', ['$log', function($log){
+        //     return {
+        //         restrict: 'A',
+        //         scope: {
+        //             proxy: '=npLoader',
+        //             type: '=npLoaderType'
+        //         },
+        //         template: '<div></div>',
+        //         link: function(scope, element, attrs) {
+        //             element.hide().find('> div').addClass(scope.type);
 
-                    if (!_.isObject(scope.proxy)) {
-                        throw new Error('npLoader attribute must be object');
-                    }
+        //             if (!_.isObject(scope.proxy)) {
+        //                 throw new Error('npLoader attribute must be object');
+        //             }
 
-                    var fade            = _.toBoolean(attrs['fade']) || false,
-                        fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
-                        fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
+        //             var fade            = _.toBoolean(attrs['fade']) || false,
+        //                 fadeOpacity     = parseFloat(attrs['fadeOpacity']) || 0.75,
+        //                 fadeDuration    = parseInt(attrs['fadeDuration']) || 250;
 
-                    _.extend(scope.proxy, {
-                        show: function() {
-                            if (fade) {
-                                fadein(element, fadeOpacity, fadeDuration);
-                            } else {
-                                element.show();
-                            }
-                        },
-                        hide: function() {
-                            if (fade) {
-                                fadeout(element, 0, fadeDuration);
-                            } else {
-                                element.hide();
-                            }
-                        }
-                    });
-                }
-            };
-        }])
+        //             _.extend(scope.proxy, {
+        //                 show: function() {
+        //                     if (fade) {
+        //                         fadein(element, fadeOpacity, fadeDuration);
+        //                     } else {
+        //                         element.show();
+        //                     }
+        //                 },
+        //                 hide: function() {
+        //                     if (fade) {
+        //                         fadeout(element, 0, fadeDuration);
+        //                     } else {
+        //                         element.hide();
+        //                     }
+        //                 }
+        //             });
+        //         }
+        //     };
+        // }])
         //
         .directive('npMessage', ['$log', '$sce', function($log, $sce){
             return {
