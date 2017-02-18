@@ -5,9 +5,10 @@
  */
 define(function(require) {'use strict';
 
-                          require('lodash');
-                          require('jquery');
-    var i18n            = require('i18n');
+    var $       = require('jquery'),
+        _       = require('lodash'),
+        i18n    = require('i18n'),
+        angular = require('angular');
     //
 
     function processTemplate(template) {
