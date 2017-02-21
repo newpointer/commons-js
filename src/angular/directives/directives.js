@@ -7,14 +7,14 @@ define(function(require, exports, module) {'use strict';
 
                           require('./styles/directives.less');
 
-    var template        = require('./views/directives.html'),
-        templateData, viewTemplates;
+    // var template        = require('./views/directives.html'),
+    //     templateData, viewTemplates;
 
     var $               = require('jquery'),
         _               = require('lodash'),
         i18n            = require('i18n'),
-        angular         = require('angular'),
-        templateUtils   = require('template-utils');
+        angular         = require('angular');
+        // templateUtils   = require('template-utils');
 
     //
     function fadeout(element, opacity, duration) {
@@ -46,8 +46,8 @@ define(function(require, exports, module) {'use strict';
     return angular.module('np.directives', [])
         //
         .run([function(){
-            templateData    = templateUtils.processTemplate(template);
-            viewTemplates   = templateData.templates;
+            // templateData    = templateUtils.processTemplate(template);
+            // viewTemplates   = templateData.templates;
         }])
         //
         // https://github.com/newpointer/commons-js/issues/2
@@ -244,7 +244,7 @@ define(function(require, exports, module) {'use strict';
                 scope: {
                     proxy: '=npMessage'
                 },
-                template: viewTemplates['message'].html,
+                // template: viewTemplates['message'].html,
                 link: function(scope, element, attrs) {
                     element.hide();
 
@@ -293,7 +293,7 @@ define(function(require, exports, module) {'use strict';
                     proxy: '=proxy',
                     data: '=data'
                 },
-                template: viewTemplates['inline-edit'].html,
+                // template: viewTemplates['inline-edit'].html,
                 link: function(scope, element, attrs) {
                     //
                     var saveText        = attrs['saveText'] || '',
@@ -383,7 +383,7 @@ define(function(require, exports, module) {'use strict';
                     var confirmText = attrs['confirmText'];
 
                     var confirmElement = $('<span>', {
-                        html: viewTemplates['inline-confirm'].html
+                        html: '<i class="icon i-message-2"></i><span class="inline-confirm-text"></span>'
                     });
 
                     confirmElement.find('.inline-confirm-text').text(confirmText);
