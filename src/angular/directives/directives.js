@@ -412,6 +412,7 @@ define(function(require, exports, module) {'use strict';
                     function doConfirm() {
                         if (confirm) {
                             setConfirmHTML();
+                            element.focus();
                         } else {
                             setOriginalHTML();
                             scope.$eval(confirmExp);
