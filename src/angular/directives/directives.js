@@ -375,7 +375,7 @@ define(function(require, exports, module) {'use strict';
             };
         }])
         //
-        .directive('npInlineConfirm', ['$log', function($log){
+        .directive('npInlineConfirm', ['$log', '$document', function($log, $document){
             return {
                 restrict: 'A',
                 scope: false,
@@ -393,13 +393,14 @@ define(function(require, exports, module) {'use strict';
                         originalHTML    = element.html(),
                         confirm         = true;
 
-                    element
-                        .click(function(){
+                    $document.click(function(e){
+                        var target = $(e.target);
+                        if (element.is(target) || element.find(target).length) {
                             doConfirm();
-                        })
-                        .blur(function(){
+                        } else {
                             reset();
-                        });
+                        }
+                    });
 
                     function setConfirmHTML() {
                         element.html(confirmHTML);
